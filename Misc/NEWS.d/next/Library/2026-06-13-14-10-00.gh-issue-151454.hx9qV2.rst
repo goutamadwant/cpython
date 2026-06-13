@@ -1,0 +1,3 @@
+Fix :meth:`email.message.Message.add_header` to accept header-like values
+returned by :meth:`email.message.Message.items` when no extra parameters are
+provided.

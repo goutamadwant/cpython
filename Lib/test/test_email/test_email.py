@@ -4282,6 +4282,15 @@ class Test8BitBytesHandling(TestEmailBase):
                                   '\tJean de Baddie'),
                                ('From', 'g\uFFFD\uFFFDst')])
 
+    def test_add_header_with_8bit_items(self):
+        msg = email.message_from_bytes(self.headertest_msg)
+        new_msg = Message()
+        for name, value in msg.items():
+            new_msg.add_header(name, value)
+
+        self.assertListEqual([(str(x), str(y)) for (x, y) in new_msg.items()],
+                             [(str(x), str(y)) for (x, y) in msg.items()])
+
     def test_get_all_with_8bit_headers(self):
         msg = email.message_from_bytes(self.headertest_msg)
         self.assertListEqual([str(x) for x in msg.get_all('from')],

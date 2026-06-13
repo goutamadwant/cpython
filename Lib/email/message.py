@@ -583,6 +583,9 @@ class Message:
             else:
                 parts.append(_formatparam(k.replace('_', '-'), v))
         if _value is not None:
+            if not parts and not isinstance(_value, str):
+                self[_name] = _value
+                return
             parts.insert(0, _value)
         self[_name] = SEMISPACE.join(parts)
 
